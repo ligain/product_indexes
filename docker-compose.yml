@@ -1,0 +1,20 @@
+
+version: '3.1'
+
+services:
+
+  db:
+    image: mysql:8.0.15
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_USER: product_indexes
+      MYSQL_PASSWORD: product_indexes
+      MYSQL_DATABASE: product_indexes
+      MYSQL_ROOT_PASSWORD: product_indexes
+    ports:
+      - 3333:3306
+    volumes:
+    - ./traktors.sql:/docker-entrypoint-initdb.d/0_traktors.sql
+    - ./add_fulltext_indexes.sql:/docker-entrypoint-initdb.d/1_add_fulltext_indexes.sql
+    - ./data:/var/lib/mysql
