@@ -36,6 +36,17 @@ $ docker-compose up
 ```
 To to stop a project use `docker-compose down` command.
 
+## Sample Full Text Search query
+```sql
+SELECT *
+FROM positions_models pm
+    JOIN ppi_position_import ppi ON pm.mod_ppi_id=ppi.ppi_id
+    JOIN technical_details td ON td.tch_mod_id=pm.mod_id
+    JOIN technical_details_fields tdf ON tdf.tdf_id=td.tch_property_id
+WHERE 
+    MATCH (ppi_name) AGAINST ('кормоуборочный') 
+    OR MATCH (mod_name) AGAINST ('Challenger');
+```
 
 ## Project Goals
 The code is written for educational purposes.
